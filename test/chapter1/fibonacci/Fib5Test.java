@@ -1,4 +1,4 @@
-package chapter1;
+package chapter1.fibonacci;
 
 import org.junit.jupiter.api.Test;
 

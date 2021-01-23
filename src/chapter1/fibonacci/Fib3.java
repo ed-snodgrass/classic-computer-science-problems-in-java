@@ -1,4 +1,4 @@
-package chapter1;
+package chapter1.fibonacci;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package chapter1;
+package chapter1.fibonacci;
 
 public class Fib1 {
     private static int fib1(int n) {
