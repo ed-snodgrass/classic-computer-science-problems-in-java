@@ -1,4 +1,4 @@
-package chapter1.trivialcompression;
+package chapter1.trivial_compression;
 
 import java.util.BitSet;
 import java.util.Locale;
