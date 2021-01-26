@@ -1,5 +1,7 @@
 package chapter2.search.dna;
 
+import chapter2.search.GenericSearch;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -34,12 +36,7 @@ public class Gene {
     }
 
     public boolean linearContains(Codon key) {
-        for (Codon codon: codons) {
-            if (codon.compareTo(key) == 0) {
-                return true;
-            }
-        }
-        return false;
+        return GenericSearch.linearContains(codons, key);
     }
 
     public boolean binaryContains(Codon key) {
@@ -48,21 +45,6 @@ public class Gene {
          */
         ArrayList<Codon> sortedCodons = new ArrayList<>(codons);
         Collections.sort(sortedCodons);
-        int low = 0;
-        int high = sortedCodons.size() - 1;
-
-        while (low <= high) {
-            int middle = (low + high) / 2;
-            int comparison = sortedCodons.get(middle).compareTo(key);
-
-            if (comparison < 0) {
-                low = middle + 1;
-            } else if (comparison > 0) {
-                high = middle - 1;
-            } else {
-                return true;
-            }
-        }
-        return false;
+        return GenericSearch.binaryContains(sortedCodons, key);
     }
 }
