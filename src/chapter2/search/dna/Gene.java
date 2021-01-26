@@ -1,6 +1,8 @@
 package chapter2.search.dna;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class Gene {
@@ -40,13 +42,27 @@ public class Gene {
         return false;
     }
 
-    public static void main(String[] args) {
-        String geneStr = "ACGTGGCTCTCTAACGTACGTACGTACGGGGTTTATATATATCCCTAGGACTCCCTTT";
-        Gene myGene = new Gene(geneStr);
-        Codon acg = new Codon("ACG");
-        Codon gat = new Codon("GAT");
-        System.out.println(myGene.linearContains(acg));
-        System.out.println(myGene.linearContains(gat));
-        // TODO for illustration only. .contains would probably work better than the linearContains.
+    public boolean binaryContains(Codon key) {
+        /*
+        In situations where you're only searching once it is likely better to perform linear search.
+         */
+        ArrayList<Codon> sortedCodons = new ArrayList<>(codons);
+        Collections.sort(sortedCodons);
+        int low = 0;
+        int high = sortedCodons.size() - 1;
+
+        while (low <= high) {
+            int middle = (low + high) / 2;
+            int comparison = sortedCodons.get(middle).compareTo(key);
+
+            if (comparison < 0) {
+                low = middle + 1;
+            } else if (comparison > 0) {
+                high = middle - 1;
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 }
