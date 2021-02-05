@@ -1,6 +1,8 @@
 package chapter2.search.maze;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Maze {
     private final int rows;
@@ -26,7 +28,28 @@ public class Maze {
     }
 
     public Maze() {
-        this(10, 10, new MazeLocation(0,0), new MazeLocation(9, 9), 0.2);
+        this(10, 10, new MazeLocation(0, 0), new MazeLocation(9, 9), 0.2);
+    }
+
+    public boolean goalTest(MazeLocation mazeLocation) {
+        return goal.equals(mazeLocation);
+    }
+
+    public List<MazeLocation> successors(MazeLocation mazeLocation) {
+        List<MazeLocation> locations = new ArrayList<>();
+        if (mazeLocation.row + 1 < rows && grid[mazeLocation.row + 1][mazeLocation.column] != Cell.BLOCKED) {
+            locations.add(new MazeLocation(mazeLocation.row + 1, mazeLocation.column));
+        }
+        if (mazeLocation.row - 1 >= 0 && grid[mazeLocation.row - 1][mazeLocation.column] != Cell.BLOCKED) {
+            locations.add(new MazeLocation(mazeLocation.row - 1, mazeLocation.column));
+        }
+        if (mazeLocation.column + 1 < columns && grid[mazeLocation.row][mazeLocation.column + 1] != Cell.BLOCKED) {
+            locations.add(new MazeLocation(mazeLocation.row, mazeLocation.column + 1));
+        }
+        if (mazeLocation.column - 1 >= 0 && grid[mazeLocation.row][mazeLocation.column - 1] != Cell.BLOCKED) {
+            locations.add(new MazeLocation(mazeLocation.row, mazeLocation.column - 1));
+        }
+        return locations;
     }
 
     private void randomlyFill(double sparseness) {
@@ -41,7 +64,7 @@ public class Maze {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Cell[] row: grid) {
+        for (Cell[] row : grid) {
             for (Cell cell : row) {
                 sb.append(cell.toString());
             }
