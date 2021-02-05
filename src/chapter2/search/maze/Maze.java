@@ -1,5 +1,8 @@
 package chapter2.search.maze;
 
+import chapter2.search.GenericSearch;
+import chapter2.search.GenericSearch.Node;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -52,6 +55,22 @@ public class Maze {
         return locations;
     }
 
+    public void mark(List<MazeLocation> path) {
+        for (MazeLocation mazeLocation: path) {
+            grid[mazeLocation.row][mazeLocation.column] = Cell.PATH;
+        }
+        grid[start.row][start.column] = Cell.START;
+        grid[goal.row][goal.row] = Cell.GOAL;
+    }
+
+    public void clear(List<MazeLocation> path) {
+        for (MazeLocation mazeLocation : path) {
+            grid[mazeLocation.row][mazeLocation.column] = Cell.EMPTY;
+        }
+        grid[start.row][start.column] = Cell.START;
+        grid[goal.row][goal.row] = Cell.GOAL;
+    }
+
     private void randomlyFill(double sparseness) {
         for (int row = 0; row < rows; row++) {
             for (int column = 0; column < columns; column++) {
@@ -76,6 +95,16 @@ public class Maze {
     public static void main(String[] args) {
         Maze maze = new Maze();
         System.out.println(maze);
+
+        Node<MazeLocation> solution1 = GenericSearch.depthFirstSearch(maze.start, maze::goalTest, maze::successors);
+        if (solution1 == null) {
+            System.out.println("No solution found using depth-first search!");
+        } else {
+            List<MazeLocation> path1 = GenericSearch.nodeToPath(solution1);
+            maze.mark(path1);
+            System.out.println(maze);
+            maze.clear(path1);
+        }
     }
 
     public enum Cell {
