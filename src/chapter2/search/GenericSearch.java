@@ -65,6 +65,31 @@ public class GenericSearch {
         return null;
     }
 
+    public static <T> Node<T> breadthFirstSearch(T initial, Predicate<T> goalTest, Function<T, List<T>> successors) {
+        Queue<Node<T>> frontier = new LinkedList<>();
+        frontier.offer(new Node<>(initial, null));
+        Set<T> explored = new HashSet<>();
+        explored.add(initial);
+
+        while (!frontier.isEmpty()) {
+            Node<T> currentNode = frontier.poll();
+            T currentState = currentNode.state;
+
+            if (goalTest.test(currentState)) {
+                return currentNode;
+            }
+
+            for (T child : successors.apply(currentState)) {
+                if (explored.contains(child)) {
+                    continue;
+                }
+                explored.add(child);
+                frontier.offer(new Node<>(child, currentNode));
+            }
+        }
+        return null;
+    }
+
     public static class Node<T> implements Comparable<Node<T>> {
         final T state;
         Node<T> parent;

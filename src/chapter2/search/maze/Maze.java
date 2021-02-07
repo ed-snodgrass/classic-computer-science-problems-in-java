@@ -105,6 +105,16 @@ public class Maze {
             System.out.println(maze);
             maze.clear(path1);
         }
+
+        Node<MazeLocation> solution2 = GenericSearch.breadthFirstSearch(maze.start, maze::goalTest, maze::successors);
+        if (solution2 == null) {
+            System.out.println("No solution found using breadth-first search!");
+        } else {
+            List<MazeLocation> path2 = GenericSearch.nodeToPath(solution2);
+            maze.mark(path2);
+            System.out.println(maze);
+            maze.clear(path2);
+        }
     }
 
     public enum Cell {
