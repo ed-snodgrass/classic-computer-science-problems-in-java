@@ -3,6 +3,7 @@ package chapter2.search;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.ToDoubleFunction;
 
 public class GenericSearch {
     public static <T extends Comparable<T>> boolean linearContains(List<T> list, T key) {
@@ -51,9 +52,11 @@ public class GenericSearch {
         while (!frontier.isEmpty()) {
             Node<T> currentNode = frontier.pop();
             T currentState = currentNode.state;
+
             if (goalTest.test(currentState)) {
                 return currentNode;
             }
+
             for (T child : successors.apply(currentState)) {
                 if (explored.contains(child)) {
                     continue;
@@ -85,6 +88,32 @@ public class GenericSearch {
                 }
                 explored.add(child);
                 frontier.offer(new Node<>(child, currentNode));
+            }
+        }
+        return null;
+    }
+
+    public static <T> Node<T> aStar(T initial, Predicate<T> goalTest, Function<T, List<T>> successors, ToDoubleFunction<T> heuristic) {
+        PriorityQueue<Node<T>> frontier = new PriorityQueue<>();
+        frontier.offer(new Node<>(initial, null, 0.0, heuristic.applyAsDouble(initial)));
+        Map<T, Double> explored = new HashMap<>();
+        explored.put(initial, 0.0);
+
+        while (!frontier.isEmpty()) {
+            Node <T> currentNode = frontier.poll();
+            T currentState = currentNode.state;
+
+            if (goalTest.test(currentState)) {
+                return currentNode;
+            }
+
+            for (T child : successors.apply(currentState)) {
+                // 1 here assumes a grid, need a cost function for more sophisticated apps
+                double newCost = currentNode.cost + 1;
+                if (!explored.containsKey(child) || explored.get(child) > newCost) {
+                    explored.put(child, newCost);
+                    frontier.offer(new Node<>(child, currentNode, newCost, heuristic.applyAsDouble(child)));
+                }
             }
         }
         return null;
