@@ -13,7 +13,7 @@ public class Maze {
     private final MazeLocation start;
     private final MazeLocation goal;
 
-    private Cell[][] grid;
+    private final Cell[][] grid;
 
     public Maze(int rows, int columns, MazeLocation start, MazeLocation goal, double sparseness) {
         this.rows = rows;
@@ -93,8 +93,7 @@ public class Maze {
         return xDistance + yDistance;
     }
 
-
-
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (Cell[] row : grid) {

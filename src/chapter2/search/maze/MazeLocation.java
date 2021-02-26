@@ -23,4 +23,9 @@ public class MazeLocation {
     public int hashCode() {
         return Objects.hash(row, column);
     }
+
+    @Override
+    public String toString() {
+        return String.format("{row: %d, column: %d}", row, column);
+    }
 }
