@@ -47,35 +47,35 @@ public class ControlledPassage {
         List<ControlledPassage> possiblePassages = new ArrayList<>();
         if (controlledPassage.boatOnWestBank) {
             if (controlledPassage.westBankFunctionalCitizens > 1) {
-                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens - 2, controlledPassage.westBankProudBoys, !controlledPassage.boatOnWestBank));
+                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens - 2, controlledPassage.westBankProudBoys, false));
             }
             if (controlledPassage.westBankFunctionalCitizens > 0) {
-                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens - 1, controlledPassage.westBankProudBoys, !controlledPassage.boatOnWestBank));
+                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens - 1, controlledPassage.westBankProudBoys, false));
             }
             if (controlledPassage.westBankProudBoys > 1) {
-                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens, controlledPassage.westBankProudBoys - 2, !controlledPassage.boatOnWestBank));
+                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens, controlledPassage.westBankProudBoys - 2, false));
             }
             if (controlledPassage.westBankProudBoys > 0) {
-                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens, controlledPassage.westBankProudBoys - 1, !controlledPassage.boatOnWestBank));
+                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens, controlledPassage.westBankProudBoys - 1, false));
             }
             if (controlledPassage.westBankProudBoys > 0 && controlledPassage.westBankFunctionalCitizens > 0) {
-                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens - 1, controlledPassage.westBankProudBoys - 1, !controlledPassage.boatOnWestBank));
+                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens - 1, controlledPassage.westBankProudBoys - 1, false));
             }
         } else {
             if (controlledPassage.eastBankFunctionalCitizens > 1) {
-                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens + 2, controlledPassage.westBankProudBoys, !controlledPassage.boatOnWestBank));
+                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens + 2, controlledPassage.westBankProudBoys, true));
             }
             if (controlledPassage.eastBankFunctionalCitizens > 0) {
-                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens + 1, controlledPassage.westBankProudBoys, !controlledPassage.boatOnWestBank));
+                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens + 1, controlledPassage.westBankProudBoys, true));
             }
             if (controlledPassage.eastBankProudBoys > 1) {
-                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens, controlledPassage.westBankProudBoys + 2, !controlledPassage.boatOnWestBank));
+                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens, controlledPassage.westBankProudBoys + 2, true));
             }
             if (controlledPassage.eastBankProudBoys > 0) {
-                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens, controlledPassage.westBankProudBoys + 1, !controlledPassage.boatOnWestBank));
+                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens, controlledPassage.westBankProudBoys + 1, true));
             }
             if (controlledPassage.eastBankProudBoys > 0 && controlledPassage.eastBankFunctionalCitizens > 0) {
-                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens + 1, controlledPassage.westBankProudBoys + 1, !controlledPassage.boatOnWestBank));
+                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens + 1, controlledPassage.westBankProudBoys + 1, true));
             }
         }
         possiblePassages.removeIf(Predicate.not(ControlledPassage::isLegal));
