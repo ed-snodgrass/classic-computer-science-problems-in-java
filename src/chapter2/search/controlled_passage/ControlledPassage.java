@@ -45,34 +45,29 @@ public class ControlledPassage {
 
     public static List<ControlledPassage> successors(ControlledPassage controlledPassage) {
         List<ControlledPassage> possiblePassages = new ArrayList<>();
+        int i = MAX_NUM - 1;
         if (controlledPassage.boatOnWestBank) {
-            if (controlledPassage.westBankFunctionalCitizens > 1) {
-                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens - 2, controlledPassage.westBankProudBoys, false));
-            }
-            if (controlledPassage.westBankFunctionalCitizens > 0) {
-                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens - 1, controlledPassage.westBankProudBoys, false));
-            }
-            if (controlledPassage.westBankProudBoys > 1) {
-                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens, controlledPassage.westBankProudBoys - 2, false));
-            }
-            if (controlledPassage.westBankProudBoys > 0) {
-                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens, controlledPassage.westBankProudBoys - 1, false));
+            while (i > 0) {
+                if (controlledPassage.westBankFunctionalCitizens > i - 1) {
+                    possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens - i, controlledPassage.westBankProudBoys, false));
+                }
+                if (controlledPassage.westBankProudBoys > i - 1) {
+                    possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens, controlledPassage.westBankProudBoys - i, false));
+                }
+                i--;
             }
             if (controlledPassage.westBankProudBoys > 0 && controlledPassage.westBankFunctionalCitizens > 0) {
                 possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens - 1, controlledPassage.westBankProudBoys - 1, false));
             }
         } else {
-            if (controlledPassage.eastBankFunctionalCitizens > 1) {
-                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens + 2, controlledPassage.westBankProudBoys, true));
-            }
-            if (controlledPassage.eastBankFunctionalCitizens > 0) {
-                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens + 1, controlledPassage.westBankProudBoys, true));
-            }
-            if (controlledPassage.eastBankProudBoys > 1) {
-                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens, controlledPassage.westBankProudBoys + 2, true));
-            }
-            if (controlledPassage.eastBankProudBoys > 0) {
-                possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens, controlledPassage.westBankProudBoys + 1, true));
+            while (i > 0) {
+                if (controlledPassage.eastBankFunctionalCitizens > i - 1) {
+                    possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens + i, controlledPassage.westBankProudBoys, true));
+                }
+                if (controlledPassage.eastBankProudBoys > i - 1) {
+                    possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens, controlledPassage.westBankProudBoys + i, true));
+                }
+                i --;
             }
             if (controlledPassage.eastBankProudBoys > 0 && controlledPassage.eastBankFunctionalCitizens > 0) {
                 possiblePassages.add(new ControlledPassage(controlledPassage.westBankFunctionalCitizens + 1, controlledPassage.westBankProudBoys + 1, true));
@@ -102,7 +97,6 @@ public class ControlledPassage {
                 );
             }
             System.out.println(currentState);
-            System.out.println("************************");
             oldState = currentState;
         }
     }
@@ -125,7 +119,8 @@ public class ControlledPassage {
         return String.format(
                 "On the west bank there are %d functional citizens and %d proud boys.%n"
                         + "On the east bank there are %d functional citizens and %d proud boys.%n"
-                        + "The boat is on the %s bank.",
+                        + "The boat is on the %s bank.%n"
+                        + "********************",
                 westBankFunctionalCitizens, westBankProudBoys, eastBankFunctionalCitizens, eastBankProudBoys,
                 boatOnWestBank ? "west" : "east"
         );

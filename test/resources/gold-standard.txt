@@ -1,0 +1,59 @@
+On the west bank there are 3 functional citizens and 3 proud boys.
+On the east bank there are 0 functional citizens and 0 proud boys.
+The boat is on the west bank.
+********************
+0 functional citizens and 2 proud boys moved from the west bank to the east bank.
+On the west bank there are 3 functional citizens and 1 proud boys.
+On the east bank there are 0 functional citizens and 2 proud boys.
+The boat is on the east bank.
+********************
+0 functional citizens and 1 proud boys moved from the east bank to the west bank.
+On the west bank there are 3 functional citizens and 2 proud boys.
+On the east bank there are 0 functional citizens and 1 proud boys.
+The boat is on the west bank.
+********************
+0 functional citizens and 2 proud boys moved from the west bank to the east bank.
+On the west bank there are 3 functional citizens and 0 proud boys.
+On the east bank there are 0 functional citizens and 3 proud boys.
+The boat is on the east bank.
+********************
+0 functional citizens and 1 proud boys moved from the east bank to the west bank.
+On the west bank there are 3 functional citizens and 1 proud boys.
+On the east bank there are 0 functional citizens and 2 proud boys.
+The boat is on the west bank.
+********************
+2 functional citizens and 0 proud boys moved from the west bank to the east bank.
+On the west bank there are 1 functional citizens and 1 proud boys.
+On the east bank there are 2 functional citizens and 2 proud boys.
+The boat is on the east bank.
+********************
+1 functional citizens and 1 proud boys moved from the east bank to the west bank.
+On the west bank there are 2 functional citizens and 2 proud boys.
+On the east bank there are 1 functional citizens and 1 proud boys.
+The boat is on the west bank.
+********************
+2 functional citizens and 0 proud boys moved from the west bank to the east bank.
+On the west bank there are 0 functional citizens and 2 proud boys.
+On the east bank there are 3 functional citizens and 1 proud boys.
+The boat is on the east bank.
+********************
+0 functional citizens and 1 proud boys moved from the east bank to the west bank.
+On the west bank there are 0 functional citizens and 3 proud boys.
+On the east bank there are 3 functional citizens and 0 proud boys.
+The boat is on the west bank.
+********************
+0 functional citizens and 2 proud boys moved from the west bank to the east bank.
+On the west bank there are 0 functional citizens and 1 proud boys.
+On the east bank there are 3 functional citizens and 2 proud boys.
+The boat is on the east bank.
+********************
+1 functional citizens and 0 proud boys moved from the east bank to the west bank.
+On the west bank there are 1 functional citizens and 1 proud boys.
+On the east bank there are 2 functional citizens and 2 proud boys.
+The boat is on the west bank.
+********************
+1 functional citizens and 1 proud boys moved from the west bank to the east bank.
+On the west bank there are 0 functional citizens and 0 proud boys.
+On the east bank there are 3 functional citizens and 3 proud boys.
+The boat is on the east bank.
+********************
