@@ -26,11 +26,9 @@ public class WordGrid {
         }
     }
 
-    private final char ALPHABET_LENGTH = 26;
-    private final char FIRST_LETTER = 'A';
     private final int rows;
     private final int columns;
-    private char[][] grid;
+    private final char[][] grid;
 
     public WordGrid(int rows, int columns) {
         this.rows = rows;
@@ -40,6 +38,8 @@ public class WordGrid {
         Random random = new Random();
         for (int row = 0; row < rows; row++) {
             for (int column = 0; column < columns; column++) {
+                char FIRST_LETTER = 'A';
+                char ALPHABET_LENGTH = 26;
                 char randomLetter = (char) (random.nextInt(ALPHABET_LENGTH) + FIRST_LETTER);
                 grid[row][column] = randomLetter;
             }
