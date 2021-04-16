@@ -1,5 +1,8 @@
 package chapter4.graphproblems;
 
+import chapter2.search.GenericSearch;
+import chapter2.search.GenericSearch.Node;
+
 import java.util.List;
 
 public class UnweightedGraph<V> extends Graph<V, Edge> {
@@ -69,6 +72,18 @@ public class UnweightedGraph<V> extends Graph<V, Edge> {
         cityGraph.addEdge(BOSTON, NEW_YORK);
         cityGraph.addEdge(NEW_YORK, PHILADELPHIA);
         cityGraph.addEdge(PHILADELPHIA, WASHINGTON);
-        System.out.println(cityGraph.toString());
+
+        checkShortestDistance(BOSTON, MIAMI, cityGraph);
+        checkShortestDistance(CHICAGO, RIVERSIDE, cityGraph);
+    }
+
+    private static void checkShortestDistance(String fromCity, String toCity, UnweightedGraph<String> cityGraph) {
+        Node<String> breadthFirstSearchResult = GenericSearch.breadthFirstSearch(fromCity, toVertex -> toVertex.equals(toCity), cityGraph::neighborsOf);
+        if (breadthFirstSearchResult == null) {
+            System.out.printf("No solution found from {%s} to {%s} using breadth-first search!%n", fromCity, toCity);
+        } else {
+            List<String> path = GenericSearch.nodeToPath(breadthFirstSearchResult);
+            System.out.printf("Path from {%s} to {%s}: %n%s%n", fromCity, toCity, path);
+        }
     }
 }
