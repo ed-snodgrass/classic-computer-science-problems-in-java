@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class Graph<V, E extends Edge> {
-    private ArrayList<V> vertices = new ArrayList<>();
+    private final ArrayList<V> vertices = new ArrayList<>();
     protected ArrayList<ArrayList<E>> edges = new ArrayList<>();
 
     public Graph() {
@@ -45,6 +45,10 @@ public abstract class Graph<V, E extends Edge> {
         return edges.get(index).stream()
                 .map(edge -> vertexAt(edge.toVertexV))
                 .collect(Collectors.toList());
+    }
+
+    public List<V> neighborsOf(V vertex) {
+        return neighborsOf(indexOf(vertex));
     }
 
     public List<E> edgesOf(int index) {
