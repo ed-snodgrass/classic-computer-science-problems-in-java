@@ -1,7 +1,10 @@
 package chapter4.graphproblems;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.function.IntConsumer;
 
 import static chapter4.graphproblems.MetropolitanStatisticalAreas.*;
 
@@ -22,6 +25,46 @@ public class WeightedGraph<V> extends Graph<V, WeightedEdge> {
 
     public void addEdge(V first, V second, float weight) {
         addEdge(indexOf(first), indexOf(second), weight);
+    }
+
+    public static double totalWeight(List<WeightedEdge> path) {
+        return path.stream().mapToDouble(weightedEdge -> weightedEdge.weight).sum();
+    }
+
+    public List<WeightedEdge> minimumSpanningTree(int start) {
+        LinkedList<WeightedEdge> result  = new LinkedList<>();
+        if (start < 0 || start > (getVertexCount() - 1)) {
+            return result;
+        }
+        PriorityQueue<WeightedEdge> priorityQueue = new PriorityQueue<>();
+        boolean[] visited = new boolean[getVertexCount()];
+
+        IntConsumer visit = index -> {
+            visited[index] = true;
+            for (WeightedEdge edge : edgesOf(index)) {
+                if (!visited[edge.toVertexV]) {
+                    priorityQueue.offer(edge);
+                }
+            }
+        };
+
+        visit.accept(start);
+        while (!priorityQueue.isEmpty()) {
+            WeightedEdge edge = priorityQueue.poll();
+            if (visited[edge.toVertexV]) {
+                continue;
+            }
+            result.add(edge);
+            visit.accept(edge.toVertexV);
+        }
+        return result;
+    }
+
+    public void printWeightedPath(List<WeightedEdge> weightedPath) {
+        for (WeightedEdge edge : weightedPath) {
+            System.out.println(vertexAt(edge.fromVertexU) + " " + edge.weight + " -> " + vertexAt(edge.toVertexV));
+        }
+        System.out.println("Total Weight: " + totalWeight(weightedPath));
     }
 
     @Override
@@ -70,5 +113,8 @@ public class WeightedGraph<V> extends Graph<V, WeightedEdge> {
         weightedCityGraph.addEdge(PHILADELPHIA, WASHINGTON, 123);
 
         System.out.println(weightedCityGraph);
+
+        List<WeightedEdge> minimumSpanningTree = weightedCityGraph.minimumSpanningTree(0);
+        weightedCityGraph.printWeightedPath(minimumSpanningTree);
     }
 }
