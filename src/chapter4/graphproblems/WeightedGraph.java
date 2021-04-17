@@ -1,9 +1,8 @@
 package chapter4.graphproblems;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.PriorityQueue;
+import com.jetbrains.management.JitState;
+
+import java.util.*;
 import java.util.function.IntConsumer;
 
 import static chapter4.graphproblems.MetropolitanStatisticalAreas.*;
@@ -80,6 +79,86 @@ public class WeightedGraph<V> extends Graph<V, WeightedEdge> {
         return stringBuilder.toString();
     }
 
+    public static final class DijkstraNode implements Comparable<DijkstraNode> {
+        public final int vertex;
+        public final double distance;
+
+        public DijkstraNode(int vertex, double distance) {
+            this.vertex = vertex;
+            this.distance = distance;
+        }
+
+        @Override
+        public int compareTo(DijkstraNode other) {
+            Double mine = distance;
+            Double theirs = other.distance;
+            return mine.compareTo(theirs);
+        }
+    }
+
+    public static final class DijkstraResult {
+        public final double[] distances;
+        public final Map<Integer, WeightedEdge> pathMap;
+
+        public DijkstraResult(double[] distances, Map<Integer, WeightedEdge> pathMap) {
+            this.distances = distances;
+            this.pathMap = pathMap;
+        }
+    }
+
+    public DijkstraResult dijkstraResult(V root) {
+        int first = indexOf(root);
+        double[] distances = new double[getVertexCount()];
+        distances[first] = 0;
+        boolean[] visited = new boolean[getVertexCount()];
+        visited[first] = true;
+
+        HashMap<Integer, WeightedEdge> pathMap = new HashMap<>();
+        PriorityQueue<DijkstraNode> priorityQueue = new PriorityQueue<>();
+        priorityQueue.offer(new DijkstraNode(first, 0));
+
+        while(!priorityQueue.isEmpty()) {
+            int fromVertexU = priorityQueue.poll().vertex;
+            double distU = distances[fromVertexU];
+            for (WeightedEdge weightedEdge : edgesOf(fromVertexU)) {
+                double distV = distances[weightedEdge.toVertexV];
+                double pathWeight = weightedEdge.weight + distU;
+
+                if (!visited[weightedEdge.toVertexV] || (distV > pathWeight)) {
+                    visited[weightedEdge.toVertexV] = true;
+                    distances[weightedEdge.toVertexV] = pathWeight;
+                    pathMap.put(weightedEdge.toVertexV, weightedEdge);
+                    priorityQueue.offer(new DijkstraNode(weightedEdge.toVertexV, pathWeight));
+                }
+            }
+        }
+
+        return new DijkstraResult(distances, pathMap);
+    }
+
+    public Map<V, Double> distanceArrayToDistanceMap(double[] distances) {
+        HashMap<V, Double> distanceMap = new HashMap<>();
+        for (int i = 0; i < distances.length; i++) {
+            distanceMap.put(vertexAt(i), distances[i]);
+        }
+        return distanceMap;
+    }
+
+    public static List<WeightedEdge> pathMapToPath(int start, int end, Map<Integer, WeightedEdge> pathMap) {
+        if (pathMap.size() == 0) {
+            return List.of();
+        }
+        LinkedList<WeightedEdge> path = new LinkedList<>();
+        WeightedEdge edge = pathMap.get(end);
+        path.add(edge);
+        while (edge.fromVertexU != start) {
+            edge = pathMap.get(edge.fromVertexU);
+            path.add(edge);
+        }
+        Collections.reverse(path);
+        return path;
+    }
+
     public static void main(String[] args) {
         WeightedGraph<String> weightedCityGraph = new WeightedGraph<>(
                 List.of(SEATTLE, SAN_FRANCISCO, LOS_ANGELES, RIVERSIDE, PHOENIX, CHICAGO, BOSTON, NEW_YORK,
@@ -116,5 +195,18 @@ public class WeightedGraph<V> extends Graph<V, WeightedEdge> {
 
         List<WeightedEdge> minimumSpanningTree = weightedCityGraph.minimumSpanningTree(0);
         weightedCityGraph.printWeightedPath(minimumSpanningTree);
+
+        System.out.println();
+
+        DijkstraResult dijkstraResult = weightedCityGraph.dijkstraResult(LOS_ANGELES);
+        Map<String, Double> nameDistance = weightedCityGraph.distanceArrayToDistanceMap(dijkstraResult.distances);
+        System.out.println("Distances from Los Angeles: ");
+        nameDistance.forEach((name, distance) -> System.out.println(name + " : " + distance));
+
+        System.out.println();
+
+        System.out.println("Shortest path from Los Angeles to Boston: ");
+        List<WeightedEdge> path = pathMapToPath(weightedCityGraph.indexOf(LOS_ANGELES), weightedCityGraph.indexOf(BOSTON), dijkstraResult.pathMap);
+        weightedCityGraph.printWeightedPath(path);
     }
 }
