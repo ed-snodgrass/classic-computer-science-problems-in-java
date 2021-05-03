@@ -49,6 +49,7 @@ public class Util {
     // Load a CSV file into a List of String arrays
     public static List<String[]> loadCSV(String filename) {
         try (InputStream inputStream = Util.class.getResourceAsStream(filename)) {
+            assert inputStream != null;
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             return bufferedReader.lines().map(line -> line.split(",")).collect(Collectors.toList());
