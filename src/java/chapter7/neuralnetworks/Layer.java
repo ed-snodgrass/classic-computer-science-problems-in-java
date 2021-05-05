@@ -41,7 +41,7 @@ public class Layer {
         }
     }
 
-    //should not be called on output layers
+    //should not be called on output layer
     public void calculateDeltasForHiddenLayer(Layer nextLayer) {
         for (int i = 0; i < neurons.size(); i++) {
             int index = i;

@@ -36,10 +36,10 @@ public class Network<T> {
     //Figure out each neuron's changes based on the errors of the output
     //versus the expected outcome
     private void backpropagate(double [] expected) {
-        // calculate delta for outpu layer neurons
+        // calculate delta for output layer neurons
         int lastLayer = layers.size() - 1;
         layers.get(lastLayer).calculateDeltasForOutputLayer(expected);
-        // calculate delta for hidden layers in revers order
+        // calculate delta for hidden layers in reverse order
         for (int i = lastLayer - 1; i >= 0; i--) {
             layers.get(i).calculateDeltasForHiddenLayer(layers.get(i + 1));
         }
@@ -58,8 +58,8 @@ public class Network<T> {
         }
     }
 
-    //train() uses the results of outpus() run over many inputs and compared
-    // against expteds to feed backpropatate() and updateweights()
+    //train() uses the results of outputs() run over many inputs and compared
+    // against expecteds to feed backpropatate() and updateWeights()
     public void train(List<double[]> inputs, List<double[]> expecteds) {
         for (int i = 0; i < inputs.size(); i++) {
             double[] xs = inputs.get(i);

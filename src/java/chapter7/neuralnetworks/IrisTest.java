@@ -14,9 +14,9 @@ public class IrisTest {
     public static final String IRIS_VERSICOLOR = "Iris-versicolor";
     public static final String IRIS_VIRGINICA = "Iris-virginica";
 
-    private List<double[]> irisParameters = new ArrayList<>();
-    private List<double[]> irisClassifications = new ArrayList<>();
-    private List<String> irisSpecies = new ArrayList<>();
+    private final List<double[]> irisParameters = new ArrayList<>();
+    private final List<double[]> irisClassifications = new ArrayList<>();
+    private final List<String> irisSpecies = new ArrayList<>();
 
     public IrisTest() {
         // make sure iris.csv is in th eright place in your path
